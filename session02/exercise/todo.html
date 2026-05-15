@@ -6,27 +6,21 @@
     <title>TODO App</title>
   </head>
   <body>
-    <!-- ============================================
-       TODOアプリの HTML を作ろう
+
+       <!--TODOアプリの HTML を作ろう
 
        以下の構造を完成させてください:
        1. ヘッダー: アプリのタイトル（h1）
        2. メイン: 入力フォーム + TODOリスト
        3. フッター: 著作権表示
 
-       各TODO項目の構造:
-       <li>
-         <label>
-           <input type="checkbox">
-           <span>TODOのテキスト</span>
-         </label>
-         <button>削除</button>
-       </li>
-  ============================================ -->
+       各TODO項目の構造:-->
+
 
     <!-- ===== ヘッダー ===== -->
     <header>
-      <!-- ヒント: h1タグでアプリのタイトルを書こう -->
+      <!--ヒント: h1タグでアプリのタイトルを書こう -->
+      <h1>TODOアプリ</h1>
     </header>
 
     <!-- ===== メインコンテンツ ===== -->
@@ -36,16 +30,31 @@
          - input (type="text", id="todo-input", placeholder="新しいTODOを入力...")
          - button (type="submit", テキスト: "追加")
     -->
+         <from id="todo-form">
+          <input type="text" id="todo-form" placeholder="新しいTODOを入力">
+          <button type="submit">追加</button>
+         </from>
 
       <!-- ----- TODOリスト表示エリア ----- -->
       <!-- ヒント: ul (id="todo-list") の中に li を3つ以上追加
          各liには label でcheckboxとspanを包み、後ろに削除ボタンを置く
          1つは checked をつけて完了済みにしてみよう
-    --></main>
+    -->
+         <ul id="todo-list">
+          <li>
+            <label>
+              <input type="checkbox">
+              <span>ネギ買いに行く</span>
+            </label>
+            <button>削除</button>
+          </li>
+         </ul>
+        </main>
 
     <!-- ===== フッター ===== -->
     <footer>
       <!-- ヒント: <p>&copy; 2026 TODO App</p> -->
+       <p>&copy; 2026 TODO App</p>
     </footer>
   </body>
 </html>
