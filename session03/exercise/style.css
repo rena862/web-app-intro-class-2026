@@ -8,21 +8,34 @@
 
 /* --- 1. リセットと基本設定 ---
    ヒント: * で全要素の margin/padding を 0 に
-          box-sizing: border-box でサイズ計算を楽に */
+          box-sizing: border-box でサイズ計算を楽に 
 
-* {
+h1 {
   /* ヒント: margin: 0; padding: 0; box-sizing: border-box; */
-}
+
 
 body {
-  /* ヒント: font-family, background-color: #f3f4f6, color: #333 */
+   /*ヒント: font-family, background-color: #f3f4f6, color: #333 */
+}
+#page-title {
+  color: darkblue;
+  text-align: center;
 }
 
 /* --- 2. ヘッダー ---
    ヒント: 背景色 #2563eb, 文字色 white, padding, text-align: center */
+.header { /*display: flex; justify-content: space-between; align-items: center; }
+.input-area { display: flex; gap: 8px; }
+body { display: flex; justify-content: center; }
 
-.header {
+.header{
+  display: flex;
+  justify-content: space-between;
+    padding: 16px;
+  background-color: #2563eb;
+  color: white;
 }
+
 
 .header h1 {
   /* ヒント: font-size: 24px */
@@ -35,8 +48,13 @@ body {
            padding: 32px, border-radius: 12px, box-shadow */
 
 .todo-card {
+ /* background-color: white;
+  max-width: 600px;
+  margin: 40px auto;       /* 上下40px、左右は自動で中央配置 */
+  /*padding: 32px;
+  border-radius: 12px;     /* 角を丸くする */
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* 影 */
 }
-
 /* --- 5. 入力エリア ---
    ヒント: display: flex で横並び, gap: 8px, margin-bottom: 24px */
 
@@ -44,6 +62,11 @@ body {
 }
 
 .todo-input {
+    /*flex: 1;                  /* 残りの幅を使い切る */
+  /*padding: 12px 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
   /* ヒント: flex: 1, padding: 12px 16px, border: 2px solid #d1d5db
              border-radius: 8px, font-size: 16px */
 }
@@ -53,12 +76,18 @@ body {
 }
 
 .todo-button {
+   /* padding: 12px 24px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer; 
   /* ヒント: padding: 12px 24px, background-color: #2563eb
              color: white, border: none, border-radius: 8px, cursor: pointer */
 }
 
 .todo-button:hover {
-  /* ヒント: background-color: #1d4ed8 */
+ /* background-color: #1d4ed8;/* ヒント: background-color: #1d4ed8 */
 }
 
 /* --- 6. TODOリスト --- */
@@ -68,13 +97,18 @@ body {
 }
 
 .todo-item {
-  /* ヒント: display: flex, align-items: center, justify-content: space-between
-             padding: 12px 16px, margin-bottom: 8px
-             background-color: #f9fafb, border: 1px solid #e5e7eb, border-radius: 8px */
-}
+   /* color: red;
+    text-align: center;
+    background-color: rgb(179, 151, 226);
+    width: 200px;
+    height: 100px;
+} 
 
+h1{
+  text-align: center;
+}
 .todo-item:hover {
-  /* ヒント: background-color: #eff6ff */
+   background-color: #f9fafb;/*background-color: #1dba54*/ 
 }
 
 /* --- 7. TODO項目の内容 --- */
@@ -130,3 +164,46 @@ body {
 /* --- 12. レスポンシブデザイン ---
    ヒント: @media (max-width: 480px) でスマホ向けスタイルを記述
            カードのmargin/paddingを小さく、入力エリアを縦並びに */
+ 
+  /*margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} 
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans",
+               "Noto Sans JP", sans-serif;
+  background-color: #f3f4f6;
+  color: #333;
+}
+@media (max-width: 480px) {
+  .todo-card { margin: 16px; padding: 16px; }
+  .input-area { flex-direction: column; }
+}
+*/
+
+h1 {
+  color: rgb(62, 119, 133);
+  font-size: 40px;
+  background-color: rgb(238, 201, 201);
+  margin: 40px auto;
+  padding: 32px;
+  border-radius: 12px; 
+}
+.todo-card {
+  background-color: rgb(238, 201, 201);
+  max-width: 600px;    
+  margin: 40px 20px; 
+  padding: 50px;
+  border-radius: 12px;     /* 角を丸くする */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* 影 */
+}
+
+.header{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  background-color: #879dcc;
+  color: rgb(238, 201, 201);
+}
