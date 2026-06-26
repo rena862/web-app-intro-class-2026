@@ -19,13 +19,12 @@
     ============================================ -->
 
     <!-- TODO: h1タグで自分の名前を見出しとして書いてみよう -->
-    <!-- 例: <h1>山田太郎の自己紹介</h1> -->
-
+ <h1>キャベツ太郎の自己紹介</h1>
     <!-- TODO: pタグで自己紹介文を2〜3文書いてみよう -->
     <!-- 例: <p>情報学部の1年生です。</p> -->
-
+<p>キャベツ学校の2年生です</p>
     <!-- TODO: h2タグで「趣味」という見出しを作ろう -->
-
+<h2>趣味</h2>
     <!-- TODO: ul と li タグで趣味のリストを3つ以上書いてみよう -->
     <!-- 例:
     <ul>
@@ -33,12 +32,15 @@
         <li>読書</li>
     </ul>
     -->
-
+<ul>
+    <li>野菜作り</li>
+    <li>お菓子作り</li>
+</ul>
     <!-- TODO: h2タグで「好きなサイト」という見出しを作ろう -->
-
+<h2>好きなサイト</h2>
     <!-- TODO: aタグで好きなWebサイトへのリンクを1つ以上作ろう -->
     <!-- 例: <a href="https://github.com">GitHub</a> -->
-
+<a href="https://www.yaokin.com/products_search/snack/item_M02116">キャベツ太郎</a>
     <!-- ============================================
          実習4: セマンティックタグで構造化しよう
          上で書いた内容を、以下のセマンティックタグで囲み直してください
@@ -65,6 +67,30 @@
              <p>&copy; 2026 あなたの名前</p>
          </footer>
     ============================================ -->
+<header>
+        <h1>はじめましてのWebページ</h1>
+        <p>キャベツのサイト始めました</p>
+</header>
+    <main>
+    <section>
+        <h2>キャベツ太郎の自己紹介（非公式）</h2>
+        <p>キャベツ学校の2年生です</p>
+    </section>
+
+    <section>
+        <h2>趣味</h2>
+        <ul>
+            <li>野菜作り</li>
+            <li>お菓子作り</li>
+        </ul>
+        <h2>好きなサイト</h2>
+        <a><a href="https://www.yaokin.com/products_search/snack/item_M02116">キャベツ太郎</a></a>
+    </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 キャベツ太郎</p>
+    </footer>
 
     <!-- ============================================
          実習5: お問い合わせフォームを追加しよう
@@ -89,5 +115,26 @@
         </form>
     </section>
     -->
+<body>
+    <from>
+        <input type="password" placeholder="パスワード">
+        <br>
+
+        <input type="checkbox" id="task1">
+        <label for="task1">タスク１完了</label>
+        <input type="checkbox" id="task2" checked>
+        <label for="task2">タスク２完了</label>
+        <br>
+        <label for="username">名前</label>
+        <input type="text" id="username">
+        <label>
+            メール：
+            <input type="email">
+        </label>
+        <br>
+        <button type="button">クリック</button>
+        <button type="submit">送信</button>
+    </from>
+</body>
   </body>
 </html>

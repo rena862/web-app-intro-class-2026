@@ -36,6 +36,24 @@
 
     <script>
       // ↓↓↓ ここから下に、スライドのコードを書いてください ↓↓↓
+      // 要素の 取得アイテムを追加するボタンとリストを取得
+      const addItemBtn = document.getElementById("add-item-btn");
+      //addItemBtnには<button id="add-item-btn">追加</button>がはいってる
+      const itemList = document.getElementById("item-list");
+      //itemListには
+      //<ul id="item-list">
+      //<li>サンプル1</li>
+      //<li>サンプル2</li>
+      //</ul>
+      //が入ってる
+      //「追加」ボタンをクリックしたときの処理
+      addItemBtn.addEventListener("click", () => {
+        // 新しいli要素を 作成して 追加中に以下のコードを追加してく
+        const newItem = document.createElement("li"); //newItemには<li></li>が入っている
+        newItem.textContent = "cat";//newItemには<li>cat</li>が入っている
+        itemList.appendChild(newItem);
+      });
+
     </script>
   </body>
 </html>
