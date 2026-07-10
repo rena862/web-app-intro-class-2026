@@ -35,7 +35,7 @@ async function loadTodos() {
     // response.ok が false = サーバーがエラーを返したとき
     if (!response.ok) {
       const error = await response.json(); // エラー内容を取り出す
-      showError(error.detail || "TODOの取得に失敗しました");
+      showError(error.detail || "WORDの取得に失敗しました");
       return; // ここで処理を終える
     }
 
@@ -51,14 +51,14 @@ async function loadTodos() {
 /**
  * 新しいTODOを追加する
  */
-async function addTodo() {
+async function addWord() {
   // 入力欄の要素を取得し、入力された文字を読み取る（trimで前後の空白を除去）
-  const input = document.getElementById("todo-input");
+  const input = document.getElementById("word-input");
   const title = input.value.trim();
 
   // 送信前のチェック（バリデーション）: 空のときは送らずに注意を表示
   if (title === "") {
-    showError("TODOのタイトルを入力してください");
+    showError("WORDのタイトルを入力してください");
     return;
   }
 
@@ -69,7 +69,7 @@ async function addTodo() {
   }
 
   try {
-    // サーバーに「このTODOを追加して」と送る
+    // サーバーに「このWORDを追加して」と送る
     const response = await fetch(API_URL, {
       method: "POST", // POST = 新しいデータを作る
       headers: { "Content-Type": "application/json" }, // 中身はJSON形式だと伝える
@@ -78,7 +78,7 @@ async function addTodo() {
 
     if (!response.ok) {
       const error = await response.json();
-      showError(error.detail || "TODOの追加に失敗しました");
+      showError(error.detail || "WORDの追加に失敗しました");
       return;
     }
 
@@ -116,18 +116,18 @@ async function toggleTodo(id, currentDone) {
 
 /**
  * TODOを削除する
- * id: 削除したいTODOの番号
+ * id: 削除したいWORDの番号
  */
-async function deleteTodo(id) {
+async function deleteWord(id) {
   try {
-    // /todos/5 のようなアドレスに対して削除を依頼する
+    // /words/5 のようなアドレスに対して削除を依頼する
     const response = await fetch(`${API_URL}/${id}`, {
       method: "DELETE", // DELETE = データを削除する
     });
 
     if (!response.ok) {
       const error = await response.json();
-      showError(error.detail || "TODOの削除に失敗しました");
+      showError(error.detail || "WORDの削除に失敗しました");
       return;
     }
 
@@ -151,32 +151,32 @@ async function deleteTodo(id) {
  *  実行されてしまう危険がある（XSS）。そこで textContent を使い、
  *  入力を「ただの文字」として扱うことで、この攻撃を防いでいる。
  */
-function renderTodos(todos) {
-  const list = document.getElementById("todo-list");
+function renderWords(words) {
+  const list = document.getElementById("dictionary-list");
   list.innerHTML = ""; // 古い表示を一度すべて消してから描き直す
 
-  // todos配列の1件ずつ(todo)について、リストの行を作る
-  todos.forEach((todo) => {
+  // words配列の1件ずつ(word)について、リストの行を作る
+  words.forEach((word) => {
     // <li> 完了済みなら "done" クラスを足して見た目を変える
     const li = document.createElement("li");
-    li.className = "todo-item" + (todo.done ? " done" : "");
+    li.className = "dictionary-item" + (word.done ? " done" : "");
 
     // チェックボックスとタイトルをまとめる<label>
     const label = document.createElement("label");
-    label.className = "todo-label";
+    label.className = "dictionary-label";
 
     // 完了チェックボックス
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "todo-checkbox";
-    checkbox.checked = todo.done; // いまの完了状態をチェックに反映
+    checkbox.className = "word-checkbox";
+    checkbox.checked = word.done; // いまの完了状態をチェックに反映
     // チェックが変わったら、完了状態を切り替える関数を呼ぶ
-    checkbox.addEventListener("change", () => toggleTodo(todo.id, todo.done));
+    checkbox.addEventListener("change", () => toggleWord(word.id, word.done));
 
-    // TODOのタイトル文字。textContent で安全に入れる（XSS対策）
+    // WORDのタイトル文字。textContent で安全に入れる（XSS対策）
     const titleSpan = document.createElement("span");
-    titleSpan.className = "todo-title";
-    titleSpan.textContent = todo.title;
+    titleSpan.className = "dictionary-title";
+    titleSpan.textContent = word.title;
 
     // label の中に [チェックボックス][タイトル] を入れる
     label.appendChild(checkbox);
@@ -186,7 +186,7 @@ function renderTodos(todos) {
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-button";
     deleteBtn.textContent = "削除";
-    deleteBtn.addEventListener("click", () => deleteTodo(todo.id));
+    deleteBtn.addEventListener("click", () => deleteWord(word.id));
 
     // <li> の中に [label][削除ボタン] を入れて、リストに追加する
     li.appendChild(label);
@@ -216,10 +216,10 @@ function showError(message) {
 // ============================================================
 
 // フォームが送信された（追加ボタン or Enter）ときの動き
-document.getElementById("todo-form").addEventListener("submit", function (e) {
+document.getElementById("dictionary-form").addEventListener("submit", function (e) {
   e.preventDefault(); // ページが再読み込みされる標準動作を止める
-  addTodo(); // 自分で用意した追加処理を呼ぶ
+  addWord(); // 自分で用意した追加処理を呼ぶ
 });
 
-// ページ読み込み時に、まずTODO一覧を取得して表示する（ここがスタート地点）
-loadTodos();
+// ページ読み込み時に、まずWORD一覧を取得して表示する（ここがスタート地点）
+loadWords();

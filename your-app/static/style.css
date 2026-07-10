@@ -28,7 +28,7 @@ body {
 
 /* --- ヘッダー --- */
 .header {
-  background-color: #2563eb; /* 青色の背景 */
+  background-color: #c8f0d4; /* 青色の背景 */
   color: white; /* 白い文字 */
   padding: 16px 24px; /* 内側の余白（上下16px / 左右24px） */
   text-align: center; /* 文字を中央ぞろえに */
@@ -41,9 +41,9 @@ body {
   font-weight: bold; /* 太字 */
 }
 
-/* --- TODOカード --- */
-/* TODO一覧をのせる白いカード部分 */
-.todo-card {
+/* --- 辞書カード --- */
+/* 辞書一覧をのせる白いカード部分 */
+.dictionary-card {
   background-color: white;
   max-width: 600px; /* これ以上は横に広がらない（読みやすさのため） */
   width: 100%; /* 画面が狭いときは横幅いっぱいに */
@@ -75,7 +75,7 @@ body {
 }
 
 /* テキスト入力欄 */
-.todo-input {
+.word-input {
   flex: 1; /* 余った横幅をすべて使って広がる（ボタンの残り全部） */
   padding: 12px 16px;
   border: 2px solid #d1d5db; /* グレーの枠線 */
@@ -86,14 +86,14 @@ body {
 }
 
 /* :focus = その要素を選択中（クリックや入力中）のときだけ適用 */
-.todo-input:focus {
-  border-color: #2563eb; /* 入力中は枠線を青くする */
+.word-input:focus {
+  border-color: #c8f0d4; /* 入力中は枠線を青くする */
 }
 
 /* 追加ボタン */
-.todo-button {
+.word-button {
   padding: 12px 24px;
-  background-color: #2563eb;
+  background-color: #c8f0d4;
   color: white;
   border: none; /* 枠線なし */
   border-radius: 8px;
@@ -105,17 +105,17 @@ body {
 }
 
 /* :hover = マウスを乗せたときだけ適用 */
-.todo-button:hover {
-  background-color: #1d4ed8; /* 少し濃い青にして「押せる」感を出す */
+.word-button:hover {
+  background-color: #84b69a; /* 少し濃い青にして「押せる」感を出す */
 }
 
-/* --- TODOリスト --- */
-.todo-list {
+/* --- 辞書リスト --- */
+.dictionary-list {
   list-style: none; /* <li>の先頭につく「・」を消す */
 }
 
-/* TODO1件ぶんの行（app.js が1件ずつ作る） */
-.todo-item {
+/* 辞書1件ぶんの行（app.js が1件ずつ作る） */
+.dictionary-item {
   display: flex;
   align-items: center; /* 中身を縦方向の中央にそろえる */
   justify-content: space-between; /* 左(チェック+文字)と右(削除ボタン)を両端に分ける */
@@ -127,40 +127,40 @@ body {
   transition: background-color 0.2s;
 }
 
-.todo-item:hover {
+.dictionary-item:hover {
   background-color: #eff6ff; /* マウスを乗せた行をうっすら青く */
 }
 
 /* チェックボックスとタイトルをまとめたラベル部分 */
-.todo-label {
+.dictionary-label {
   display: flex;
   align-items: center;
   gap: 12px; /* チェックボックスと文字のすき間 */
   flex: 1; /* 残りの横幅を使って広がる */
 }
 
-.todo-checkbox {
+.word-checkbox {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #2563eb; /* チェックを入れたときの色を青に */
+  accent-color: #c8f0d4; /* チェックを入れたときの色を青に */
 }
 
-.todo-title {
+.dictionary-title {
   font-size: 16px;
   line-height: 1.5; /* 行の高さ（文字サイズの1.5倍）。読みやすくする */
   word-break: break-word; /* 長い文字列を途中で折り返して、はみ出させない */
 }
 
 /* --- 完了状態 --- */
-/* .todo-item.done = item と done の両方のclassを持つ要素（＝完了したTODO）。
+/* .dictionary-item.done = item と done の両方のclassを持つ要素（＝完了したWORD）。
    app.js が完了時に "done" クラスを付け外しする */
-.todo-item.done {
+.dictionary-item.done {
   background-color: #f0fdf4; /* 薄い緑の背景 */
   border-color: #bbf7d0;
 }
 
-.todo-item.done .todo-title {
+.dictionary-item.done .dictionary-title {
   text-decoration: line-through; /* 文字に取り消し線を引く */
   color: #9ca3af; /* 文字を薄いグレーにして「完了済み」を表す */
 }
@@ -201,7 +201,7 @@ body {
     font-size: 20px; /* 見出しを少し小さく */
   }
 
-  .todo-card {
+  .dictionary-card {
     margin: 12px; /* 余白を詰めて、画面を広く使う */
     padding: 16px;
   }
@@ -210,7 +210,7 @@ body {
     flex-direction: column; /* 入力欄とボタンを横並び → 縦並びに変える */
   }
 
-  .todo-button {
+  .word-button {
     width: 100%; /* ボタンを横幅いっぱいにして押しやすく */
   }
 }
