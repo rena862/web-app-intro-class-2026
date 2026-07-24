@@ -1,79 +1,51 @@
-/**
- * TODO App JavaScript - 完成版
- * 第8回: セキュリティの基礎 & 総仕上げ
- *
- * 【このファイルの役割】
- *  ブラウザの画面（HTML）と、バックエンド（main.py）の橋渡しをする。
- *
- * 【全体の流れ】
- *  1. ページが開かれる → loadTodos() でサーバーからTODO一覧を取得
- *  2. renderTodos() が、取得したデータを画面のリストとして描画する
- *  3. ユーザーが「追加・チェック・削除」を操作する
- *     → 対応する関数がサーバーに変更を送る（fetch）
- *     → 最後にもう一度 loadTodos() して、最新の状態を画面に反映する
- *
- * ※ fetch はサーバーと通信する命令。通信は時間がかかるので、
- *   async / await を使って「結果が返ってくるまで待つ」書き方をしている。
- */
-
-// サーバー側のAPIのアドレス（main.py の @app.get("/todos") などに対応）
-const API_URL = "/todos";
+const API_URL = "/words";
 
 // ============================================================
-// TODO操作（CRUD）
+// WORD操作（CRUD）
 // ============================================================
 
 /**
- * TODO一覧を取得して表示する
+ * WORD一覧を取得して表示する
  */
-async function loadTodos() {
-  // try ... catch: 通信中にエラーが起きても、アプリが止まらないようにする
+async function loadWords() {
   try {
-    // サーバーに「一覧をください」とお願いし、返事(response)を待つ
     const response = await fetch(API_URL);
 
-    // response.ok が false = サーバーがエラーを返したとき
     if (!response.ok) {
-      const error = await response.json(); // エラー内容を取り出す
+      const error = await response.json();
       showError(error.detail || "WORDの取得に失敗しました");
-      return; // ここで処理を終える
+      return;
     }
 
-    // 返ってきたデータ(JSON)をJavaScriptの配列に変換する
-    const todos = await response.json();
-    renderTodos(todos); // 画面に描画する
+    const words = await response.json();
+    renderWords(words);
   } catch (error) {
-    // そもそもサーバーにつながらなかったときなど
-    showError("通信エラーが発生しました");
+    showError("通信エラー１が発生しました");
   }
 }
 
 /**
- * 新しいTODOを追加する
+ * 新しいWORDを追加する
  */
 async function addWord() {
-  // 入力欄の要素を取得し、入力された文字を読み取る（trimで前後の空白を除去）
   const input = document.getElementById("word-input");
   const title = input.value.trim();
 
-  // 送信前のチェック（バリデーション）: 空のときは送らずに注意を表示
   if (title === "") {
     showError("WORDのタイトルを入力してください");
     return;
   }
 
-  // 長すぎるときも送らない（サーバー側でも100文字までチェックしている）
   if (title.length > 100) {
     showError("タイトルは100文字以内で入力してください");
     return;
   }
 
   try {
-    // サーバーに「このWORDを追加して」と送る
     const response = await fetch(API_URL, {
-      method: "POST", // POST = 新しいデータを作る
-      headers: { "Content-Type": "application/json" }, // 中身はJSON形式だと伝える
-      body: JSON.stringify({ title: title }), // データをJSON文字列にして送る
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: title }),
     });
 
     if (!response.ok) {
@@ -82,47 +54,43 @@ async function addWord() {
       return;
     }
 
-    input.value = ""; // 入力欄を空に戻す
-    await loadTodos(); // 一覧を取り直して、追加結果を画面に反映する
+    input.value = "";
+    await loadWords();
   } catch (error) {
-    showError("通信エラーが発生しました");
+    showError("通信エラー２が発生しました");
   }
 }
 
 /**
- * TODOの完了状態を切り替える
- * id: 対象のTODOの番号 / currentDone: いまの完了状態(true/false)
+ * WORDの完了状態を切り替える
  */
-async function toggleTodo(id, currentDone) {
+async function toggleWord(id, currentDone) {
   try {
-    // `${API_URL}/${id}` で /todos/5 のようなアドレスを作る（id=5のTODOが対象）
     const response = await fetch(`${API_URL}/${id}`, {
-      method: "PUT", // PUT = 既存のデータを更新する
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ done: !currentDone }), // !で完了/未完了を反転させる
+      body: JSON.stringify({ done: !currentDone }),
     });
 
     if (!response.ok) {
       const error = await response.json();
-      showError(error.detail || "TODOの更新に失敗しました");
+      showError(error.detail || "WORDの更新に失敗しました");
       return;
     }
 
-    await loadTodos(); // 一覧を取り直して、更新結果を画面に反映する
+    await loadWords();
   } catch (error) {
-    showError("通信エラーが発生しました");
+    showError("通信エラー３が発生しました");
   }
 }
 
 /**
- * TODOを削除する
- * id: 削除したいWORDの番号
+ * WORDを削除する
  */
 async function deleteWord(id) {
   try {
-    // /words/5 のようなアドレスに対して削除を依頼する
     const response = await fetch(`${API_URL}/${id}`, {
-      method: "DELETE", // DELETE = データを削除する
+      method: "DELETE",
     });
 
     if (!response.ok) {
@@ -131,9 +99,9 @@ async function deleteWord(id) {
       return;
     }
 
-    await loadTodos(); // 一覧を取り直して、削除結果を画面に反映する
+    await loadWords();
   } catch (error) {
-    showError("通信エラーが発生しました");
+    showError("通信エラー４が発生しました");
   }
 }
 
@@ -142,53 +110,41 @@ async function deleteWord(id) {
 // ============================================================
 
 /**
- * TODOリストを描画する（XSS対策: createElement + textContent）
- *
- * 受け取ったTODOの配列をもとに、画面に並べる<li>を1件ずつ組み立てる。
- *
- * 【XSS対策のポイント】
- *  innerHTML に文字列を直接入れると、入力に紛れ込んだ<script>などが
- *  実行されてしまう危険がある（XSS）。そこで textContent を使い、
- *  入力を「ただの文字」として扱うことで、この攻撃を防いでいる。
+ * WORDリストを描画する（Wikipediaリンク付き）
  */
 function renderWords(words) {
   const list = document.getElementById("dictionary-list");
-  list.innerHTML = ""; // 古い表示を一度すべて消してから描き直す
+  list.innerHTML = "";
 
-  // words配列の1件ずつ(word)について、リストの行を作る
   words.forEach((word) => {
-    // <li> 完了済みなら "done" クラスを足して見た目を変える
     const li = document.createElement("li");
     li.className = "dictionary-item" + (word.done ? " done" : "");
 
-    // チェックボックスとタイトルをまとめる<label>
     const label = document.createElement("label");
     label.className = "dictionary-label";
 
-    // 完了チェックボックス
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "word-checkbox";
-    checkbox.checked = word.done; // いまの完了状態をチェックに反映
-    // チェックが変わったら、完了状態を切り替える関数を呼ぶ
+    checkbox.checked = word.done;
     checkbox.addEventListener("change", () => toggleWord(word.id, word.done));
 
-    // WORDのタイトル文字。textContent で安全に入れる（XSS対策）
-    const titleSpan = document.createElement("span");
-    titleSpan.className = "dictionary-title";
-    titleSpan.textContent = word.title;
+    // WORDタイトルをWikipediaへのリンクにする
+    const titleLink = document.createElement("a");
+    titleLink.className = "dictionary-title";
+    titleLink.textContent = word.title;
+    titleLink.href = `https://ja.wikipedia.org/wiki/${encodeURIComponent(word.title)}`;
+    titleLink.target = "_blank";
+    titleLink.rel = "noopener noreferrer";
 
-    // label の中に [チェックボックス][タイトル] を入れる
     label.appendChild(checkbox);
-    label.appendChild(titleSpan);
+    label.appendChild(titleLink);
 
-    // 削除ボタン。押されたら削除する関数を呼ぶ
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-button";
     deleteBtn.textContent = "削除";
     deleteBtn.addEventListener("click", () => deleteWord(word.id));
 
-    // <li> の中に [label][削除ボタン] を入れて、リストに追加する
     li.appendChild(label);
     li.appendChild(deleteBtn);
 
@@ -200,14 +156,12 @@ function renderWords(words) {
 // メッセージ表示
 // ============================================================
 
-// エラーメッセージを画面に表示する（5秒後に自動で消える）
 function showError(message) {
   const errorDiv = document.getElementById("error-message");
-  errorDiv.textContent = message; // メッセージを表示
-  errorDiv.style.display = "block"; // 見えるようにする
-  // setTimeout: 指定したミリ秒後に処理を実行する。5000ミリ秒 = 5秒
+  errorDiv.textContent = message;
+  errorDiv.style.display = "block";
   setTimeout(() => {
-    errorDiv.style.display = "none"; // 5秒後に隠す
+    errorDiv.style.display = "none";
   }, 5000);
 }
 
@@ -215,11 +169,70 @@ function showError(message) {
 // イベントリスナー
 // ============================================================
 
-// フォームが送信された（追加ボタン or Enter）ときの動き
 document.getElementById("dictionary-form").addEventListener("submit", function (e) {
-  e.preventDefault(); // ページが再読み込みされる標準動作を止める
-  addWord(); // 自分で用意した追加処理を呼ぶ
+  e.preventDefault();
+  addWord();
 });
 
-// ページ読み込み時に、まずWORD一覧を取得して表示する（ここがスタート地点）
+// ページ読み込み時にWORD一覧を取得
 loadWords();
+
+let checkedWords = []; // チェックがついている単語を入れる配列
+let currentCardWord = null; // いま表示している単語
+
+// 学習モードを開始する
+function startFlashCards(allWords) {
+  // done === true (チェックがついている単語) だけを抽出する
+  checkedWords = allWords.filter(word => word.done);
+
+  if (checkedWords.length === 0) {
+    showError("チェックがついている単語がありません！");
+    return;
+  }
+
+  // モーダルを表示
+  document.getElementById("card-modal").style.display = "flex";
+  
+  // 最初のランダム単語を表示
+  showNextCard();
+}
+
+// ランダムに次の単語を表示する
+function showNextCard() {
+  // 配列からランダムに1文字選ぶ
+  const randomIndex = Math.floor(Math.random() * checkedWords.length);
+  currentCardWord = checkedWords[randomIndex];
+
+  // 画面に表示
+  document.getElementById("card-title").textContent = currentCardWord.title;
+}
+
+// ボタン等のイベント設定
+document.getElementById("start-card-btn").addEventListener("click", async () => {
+  // 最新の単語一覧をサーバーから取得してカードを開始
+  try {
+    const response = await fetch(API_URL);
+    if (response.ok) {
+      const words = await response.json();
+      startFlashCards(words);
+    }
+  } catch (e) {
+    showError("データの読み込みに失敗しました");
+  }
+});
+
+// 次の単語へボタン
+document.getElementById("next-card-btn").addEventListener("click", showNextCard);
+
+// Wikipediaを開くボタン
+document.getElementById("wiki-link-btn").addEventListener("click", () => {
+  if (currentCardWord) {
+    const url = `https://ja.wikipedia.org/wiki/${encodeURIComponent(currentCardWord.title)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+});
+
+// モーダルを閉じるボタン
+document.getElementById("close-card-btn").addEventListener("click", () => {
+  document.getElementById("card-modal").style.display = "none";
+});

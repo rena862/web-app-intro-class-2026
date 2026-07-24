@@ -1,216 +1,309 @@
-/* ============================================
-   TODO App CSS - 第8回
-   第7回の正解ベース + エラーメッセージスタイル追加
-
-   CSSは「どの部分を(セレクタ)・どう見せるか(プロパティ)」を指定するもの。
-   .header のように . で始まるのはHTMLの class="..." を狙う書き方。
-   ============================================ */
-
-/* 全要素(*)の初期設定をそろえる（リセット）。
-   ブラウザが勝手につける余白を消し、サイズ計算を分かりやすくする */
+/* ============================================================
+   全体・リセット
+   ============================================================ */
 * {
-  margin: 0; /* 外側の余白をゼロに */
-  padding: 0; /* 内側の余白をゼロに */
-  box-sizing: border-box; /* 枠線や内側余白も含めて幅・高さを計算する */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* ページ全体の基本スタイル */
 body {
-  /* 文字フォント。先頭から順に、使えるものが採用される（日本語フォントも指定） */
-  font-family:
-    "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;
-  background-color: #f3f4f6; /* 背景色（薄いグレー）。#から始まるのは色コード */
-  color: #333; /* 文字色（濃いグレー） */
-  min-height: 100vh; /* 画面の高さいっぱいまで広げる（100vh=画面の高さ100%） */
-  display: flex; /* 中身をflexboxで並べる */
-  flex-direction: column; /* 縦方向（上から下）に並べる → ヘッダー/本文/フッター */
+  font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Quicksand", sans-serif;
+  background-color: #f7f9f6;
+  color: #4a5568;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* --- ヘッダー --- */
+/* ============================================================
+   ヘッダー & フッター
+   ============================================================ */
 .header {
-  background-color: #c8f0d4; /* 青色の背景 */
-  color: white; /* 白い文字 */
-  padding: 16px 24px; /* 内側の余白（上下16px / 左右24px） */
-  text-align: center; /* 文字を中央ぞろえに */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 下にうっすら影をつける */
+  background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(168, 230, 207, 0.4);
 }
 
 .header h1 {
-  /* .header の中にある <h1> という意味（スペースで「〜の中の」を表す） */
-  font-size: 24px; /* 文字の大きさ */
-  font-weight: bold; /* 太字 */
-}
-
-/* --- 辞書カード --- */
-/* 辞書一覧をのせる白いカード部分 */
-.dictionary-card {
-  background-color: white;
-  max-width: 600px; /* これ以上は横に広がらない（読みやすさのため） */
-  width: 100%; /* 画面が狭いときは横幅いっぱいに */
-  margin: 24px auto; /* 上下24px / 左右autoで中央に寄せる */
-  padding: 32px; /* 内側の余白 */
-  border-radius: 12px; /* 角を丸くする */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 浮いて見える影 */
-  flex: 1; /* 余ったスペースを埋めて広がる（フッターを下に押しやる） */
-}
-
-/* --- エラーメッセージ（第8回で追加） --- */
-/* 普段は隠れていて、エラー時に app.js が表示する赤い帯 */
-.error-message {
-  background-color: #fee2e2; /* 薄い赤の背景 */
-  color: #dc2626; /* 赤い文字 */
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 16px; /* 下に余白をあけて入力欄と離す */
-  font-size: 14px;
-  border: 1px solid #fecaca; /* 赤い枠線（太さ1px・実線） */
-}
-
-/* --- 入力エリア --- */
-/* 入力欄と追加ボタンを横並びにする箱 */
-.input-area {
-  display: flex; /* 子要素を横並びに */
-  gap: 8px; /* 子要素どうしのすき間 */
-  margin-bottom: 24px;
-}
-
-/* テキスト入力欄 */
-.word-input {
-  flex: 1; /* 余った横幅をすべて使って広がる（ボタンの残り全部） */
-  padding: 12px 16px;
-  border: 2px solid #d1d5db; /* グレーの枠線 */
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none; /* クリック時にブラウザが出す枠を消す（下で自前の色をつける） */
-  transition: border-color 0.3s; /* 枠線の色が0.3秒かけてなめらかに変わる */
-}
-
-/* :focus = その要素を選択中（クリックや入力中）のときだけ適用 */
-.word-input:focus {
-  border-color: #c8f0d4; /* 入力中は枠線を青くする */
-}
-
-/* 追加ボタン */
-.word-button {
-  padding: 12px 24px;
-  background-color: #c8f0d4;
-  color: white;
-  border: none; /* 枠線なし */
-  border-radius: 8px;
-  font-size: 16px;
+  color: #ffffff;
+  font-size: 26px;
   font-weight: bold;
-  cursor: pointer; /* マウスを乗せると指のカーソルになる */
-  transition: background-color 0.3s; /* 色の変化をなめらかに */
-  white-space: nowrap; /* ボタンの文字を途中で改行させない */
+  letter-spacing: 1px;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* :hover = マウスを乗せたときだけ適用 */
+.footer {
+  margin-top: auto;
+  padding: 16px;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 13px;
+}
+
+/* ============================================================
+   メインカード（コンテナ）
+   ============================================================ */
+.dictionary-card {
+  background: #ffffff;
+  width: 90%;
+  max-width: 480px;
+  margin: 30px auto;
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================================
+   入力フォーム & 追加ボタン
+   ============================================================ */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.word-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #edf2f7;
+  border-radius: 16px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #fafbfc;
+}
+
+.word-input:focus {
+  border-color: #a8e6cf;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(168, 230, 207, 0.3);
+}
+
+.word-button {
+  padding: 12px 20px;
+  background: #a8e6cf;
+  color: #2d5a43;
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(168, 230, 207, 0.4);
+}
+
 .word-button:hover {
-  background-color: #84b69a; /* 少し濃い青にして「押せる」感を出す */
+  background: #95ded2;
+  transform: translateY(-2px);
 }
 
-/* --- 辞書リスト --- */
+.word-button:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   辞書リスト（単語一覧）
+   ============================================================ */
 .dictionary-list {
-  list-style: none; /* <li>の先頭につく「・」を消す */
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* 辞書1件ぶんの行（app.js が1件ずつ作る） */
 .dictionary-item {
   display: flex;
-  align-items: center; /* 中身を縦方向の中央にそろえる */
-  justify-content: space-between; /* 左(チェック+文字)と右(削除ボタン)を両端に分ける */
+  align-items: center;
+  justify-content: space-between;
   padding: 12px 16px;
-  margin-bottom: 8px; /* 行どうしのすき間 */
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  transition: background-color 0.2s;
+  background: #fdfdfd;
+  border: 2px solid #e2f0d9;
+  border-radius: 16px;
+  transition: all 0.2s ease;
 }
 
 .dictionary-item:hover {
-  background-color: #eff6ff; /* マウスを乗せた行をうっすら青く */
+  border-color: #a8e6cf;
+  transform: scale(1.01);
 }
 
-/* チェックボックスとタイトルをまとめたラベル部分 */
+/* 完了済みのスタイル */
+.dictionary-item.done {
+  background-color: #f4fbf7;
+  border-color: #c8e6c9;
+}
+
+.dictionary-item.done .dictionary-title {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
 .dictionary-label {
   display: flex;
   align-items: center;
-  gap: 12px; /* チェックボックスと文字のすき間 */
-  flex: 1; /* 残りの横幅を使って広がる */
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
 }
 
 .word-checkbox {
   width: 20px;
   height: 20px;
+  accent-color: #81c784;
   cursor: pointer;
-  accent-color: #c8f0d4; /* チェックを入れたときの色を青に */
 }
 
 .dictionary-title {
   font-size: 16px;
-  line-height: 1.5; /* 行の高さ（文字サイズの1.5倍）。読みやすくする */
-  word-break: break-word; /* 長い文字列を途中で折り返して、はみ出させない */
+  font-weight: 600;
+  color: #3b82f6;
+  text-decoration: none;
+  word-break: break-word;
 }
 
-/* --- 完了状態 --- */
-/* .dictionary-item.done = item と done の両方のclassを持つ要素（＝完了したWORD）。
-   app.js が完了時に "done" クラスを付け外しする */
-.dictionary-item.done {
-  background-color: #f0fdf4; /* 薄い緑の背景 */
-  border-color: #bbf7d0;
+.dictionary-title:hover {
+  text-decoration: underline;
 }
 
-.dictionary-item.done .dictionary-title {
-  text-decoration: line-through; /* 文字に取り消し線を引く */
-  color: #9ca3af; /* 文字を薄いグレーにして「完了済み」を表す */
-}
-
-/* --- 削除ボタン --- */
 .delete-button {
+  background: #ffd3b6;
+  color: #8a4b2a;
+  border: none;
   padding: 6px 12px;
-  background-color: transparent; /* 背景は透明（普段は目立たせない） */
-  color: #9ca3af;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 12px;
   font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s; /* all = すべてのプロパティの変化をなめらかに */
+  transition: all 0.2s;
 }
 
 .delete-button:hover {
-  /* マウスを乗せると赤系に変わり、「削除」だと分かりやすくする */
-  background-color: #fef2f2;
-  color: #dc2626;
-  border-color: #fca5a5;
+  background: #ffaaa5;
+  color: #ffffff;
 }
 
-/* --- ページフッター --- */
-.footer {
-  background-color: #374151; /* 濃いグレーの背景 */
-  color: #9ca3af;
-  text-align: center;
-  padding: 16px;
+/* エラーメッセージ */
+.error-message {
+  background: #ffaaa5;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
   font-size: 14px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: bold;
 }
 
-/* --- レスポンシブ --- */
-/* @media (max-width: 480px) = 画面の幅が480px以下のとき（スマホなど）だけ、
-   この中のスタイルを上書きで適用する */
-@media (max-width: 480px) {
-  .header h1 {
-    font-size: 20px; /* 見出しを少し小さく */
-  }
+/* ============================================================
+   ★ポップで可愛い単語カード（モーダル）
+   ============================================================ */
+.card-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(74, 85, 104, 0.5);
+  backdrop-filter: blur(4px); /* 背景をぽわっとぼかす */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-  .dictionary-card {
-    margin: 12px; /* 余白を詰めて、画面を広く使う */
-    padding: 16px;
-  }
+.card-content {
+  background: #ffffff;
+  padding: 28px 20px;
+  border-radius: 28px;
+  width: 88%;
+  max-width: 380px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-  .input-area {
-    flex-direction: column; /* 入力欄とボタンを横並び → 縦並びに変える */
-  }
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
-  .word-button {
-    width: 100%; /* ボタンを横幅いっぱいにして押しやすく */
-  }
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 22px;
+  border: none;
+  background: #f0f4f8;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: #ffaaa5;
+  color: white;
+}
+
+.flash-card {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f9f5 0%, #e6f4ea 100%);
+  border: 3px dashed #a8e6cf;
+  border-radius: 20px;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+#card-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #2d5a43;
+  word-break: break-word;
+}
+
+.card-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.card-btn {
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.wiki-btn {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.wiki-btn:hover {
+  background-color: #cbd5e0;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(129, 199, 132, 0.4);
+}
+
+.next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(129, 199, 132, 0.5);
 }

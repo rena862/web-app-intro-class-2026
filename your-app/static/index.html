@@ -1,44 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dictionary App</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- ヘッダー -->
-    <header class="header">
-      <h1>My Dictionary App</h1>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dictionary App</title>
+  <!-- ★CSSにキャッシュ無効化（?v=2）をつけて強制的に新しいスタイルを読み込ませます -->
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <header class="header">
+    <h1>My Dictionary App</h1>
+  </header>
 
-    <!-- メインコンテンツ -->
-    <main class="dictionary-card">
-      <!-- エラーメッセージ表示エリア -->
-      <div id="error-message" class="error-message" style="display: none"></div>
+  <main class="dictionary-card">
+    <!-- エラーメッセージ表示エリア -->
+    <div id="error-message" class="error-message" style="display: none"></div>
 
-      <!-- 辞書登録エリア -->
-      <form id="dictionary-form" class="input-area">
-        <input
-          type="text"
-          id="word-input"
-          class="word-input"
-          placeholder="新しい単語を入力..."
-          maxlength="100"
-          autocomplete="off"
-        />
-        <button type="submit" class="word-button">追加</button>
-      </form>
+    <!-- 辞書登録エリア -->
+    <form id="dictionary-form" class="input-area">
+      <input
+        type="text"
+        id="word-input"
+        class="word-input"
+        placeholder="新しい単語を入力..."
+        maxlength="100"
+        autocomplete="off"
+      />
+      <button type="submit" class="word-button">追加</button>
+    </form>
 
-      <!-- 辞書リスト -->
-      <ul id="dictionary-list" class="dictionary-list"></ul>
-    </main>
+    <!-- 単語カード起動ボタン -->
+    <button id="start-card-btn" class="word-button" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
+      🎴 チェックした単語で勉強する
+    </button>
 
-    <!-- フッター -->
-    <footer class="footer">
-      <p>&copy; 2026 Dictionary App</p>
-    </footer>
+    <!-- 辞書リスト -->
+    <ul id="dictionary-list" class="dictionary-list"></ul>
+  </main>
 
-    <script src="app.js"></script>
-  </body>
+  <!-- 単語カード用モーダル（mainの外側に配置） -->
+  <div id="card-modal" class="card-modal" style="display: none;">
+    <div class="card-content">
+      <button id="close-card-btn" class="close-btn">&times;</button>
+      <div id="flash-card" class="flash-card">
+        <p id="card-title">単語がここに表示されます</p>
+      </div>
+      <div class="card-controls">
+        <button id="wiki-link-btn" class="card-btn wiki-btn">Wikipediaで意味を見る</button>
+        <button id="next-card-btn" class="card-btn next-btn">次の単語 ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Dictionary App</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
 </html>
