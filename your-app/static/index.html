@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Dictionary App</title>
-  <!-- ★CSSにキャッシュ無効化（?v=2）をつけて強制的に新しいスタイルを読み込ませます -->
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <header class="header">
@@ -13,11 +12,10 @@
   </header>
 
   <main class="dictionary-card">
-    <!-- エラーメッセージ表示エリア -->
     <div id="error-message" class="error-message" style="display: none"></div>
 
     <!-- 辞書登録エリア -->
-    <form id="dictionary-form" class="input-area">
+    <form id="dictionary-form" class="input-area-vertical">
       <input
         type="text"
         id="word-input"
@@ -25,28 +23,48 @@
         placeholder="新しい単語を入力..."
         maxlength="100"
         autocomplete="off"
+        required
       />
+      <textarea
+        id="memo-input"
+        class="memo-input"
+        placeholder="自分なりのメモ・覚え方（任意）..."
+        rows="2"
+      ></textarea>
       <button type="submit" class="word-button">追加</button>
     </form>
 
-    <!-- 単語カード起動ボタン -->
-    <button id="start-card-btn" class="word-button" style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
+    <button id="start-card-btn" class="word-button" style="width: 100%; margin-top: 15px; margin-bottom: 20px;">
       🎴 チェックした単語で勉強する
     </button>
 
-    <!-- 辞書リスト -->
     <ul id="dictionary-list" class="dictionary-list"></ul>
   </main>
 
-  <!-- 単語カード用モーダル（mainの外側に配置） -->
+  <!-- 単語カード用モーダル（表裏ひっくり返るカード） -->
   <div id="card-modal" class="card-modal" style="display: none;">
     <div class="card-content">
       <button id="close-card-btn" class="close-btn">&times;</button>
-      <div id="flash-card" class="flash-card">
-        <p id="card-title">単語がここに表示されます</p>
+
+      <!-- 3Dフリップカード容器 -->
+      <div id="flash-card-container" class="flash-card-container">
+        <div id="flash-card-inner" class="flash-card-inner">
+          <!-- 表面（単語） -->
+          <div class="card-face card-front">
+            <span class="card-badge">表（タップでめくる）</span>
+            <p id="card-title">単語</p>
+          </div>
+          <!-- 裏面（メモ） -->
+          <div class="card-face card-back">
+            <span class="card-badge">裏（メモ）</span>
+            <p id="card-memo">メモがここに表示されます</p>
+          </div>
+        </div>
       </div>
+
       <div class="card-controls">
-        <button id="wiki-link-btn" class="card-btn wiki-btn">Wikipediaで意味を見る</button>
+        <button id="wiki-link-btn" class="card-btn wiki-btn">Wikipediaで見る</button>
+        <button id="master-btn" class="card-btn master-btn">覚えた！🎉</button>
         <button id="next-card-btn" class="card-btn next-btn">次の単語 ➔</button>
       </div>
     </div>
@@ -56,6 +74,6 @@
     <p>&copy; 2026 Dictionary App</p>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
