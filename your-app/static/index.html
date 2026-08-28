@@ -3,77 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Dictionary App</title>
-  <link rel="stylesheet" href="style.css?v=3">
+  <title>ポップ単語帳</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- ヘッダー -->
   <header class="header">
-    <h1>My Dictionary App</h1>
+    <h1>💎 ターコイズ単語帳</h1>
   </header>
 
+  <!-- メインコンテナ -->
   <main class="dictionary-card">
-    <div id="error-message" class="error-message" style="display: none"></div>
+    
+    <div id="error-message" class="error-message" style="display: none;"></div>
 
-    <!-- 辞書登録エリア -->
-    <form id="dictionary-form" class="input-area-vertical">
-      <input
-        type="text"
-        id="word-input"
-        class="word-input"
-        placeholder="新しい単語を入力..."
-        maxlength="100"
-        autocomplete="off"
-        required
-      />
-      <textarea
-        id="memo-input"
-        class="memo-input"
-        placeholder="自分なりのメモ・覚え方（任意）..."
-        rows="2"
-      ></textarea>
-      <button type="submit" class="word-button">追加</button>
-    </form>
+    <!-- 進捗バー（全体のマスター達成率） -->
+    <div class="progress-container">
+      <div class="progress-label-row">
+        <span>マスター達成率</span>
+        <span id="master-progress-text">0% (0 / 0)</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="master-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+    </div>
 
-    <button id="start-card-btn" class="word-button" style="width: 100%; margin-top: 15px; margin-bottom: 20px;">
+    <!-- 入力エリア -->
+    <div class="input-area-vertical">
+      <input type="text" id="word-input" class="word-input" placeholder="単語を入力..." autocomplete="off">
+      <textarea id="memo-input" class="memo-input" placeholder="意味やメモを入力..." rows="2"></textarea>
+      <button type="button" id="add-btn" class="word-button">✨ 単語を追加する</button>
+    </div>
+
+    <!-- フィルタータブ ＆ 一括選択操作 -->
+    <div class="filter-and-select-bar">
+      <div class="filter-container">
+        <button type="button" class="filter-btn active" data-filter="all">すべて</button>
+        <button type="button" class="filter-btn" data-filter="unmastered">未習得</button>
+        <button type="button" class="filter-btn" data-filter="mastered">覚えた</button>
+      </div>
+      <div class="quick-select-btns">
+        <button type="button" id="select-all-btn" class="sub-action-btn">全選択</button>
+        <button type="button" id="deselect-all-btn" class="sub-action-btn">全解除</button>
+      </div>
+    </div>
+
+    <!-- 学習説明ガイドテキスト -->
+    <div class="study-guide-text">
+      💡 チェックを入れた単語をカード形式で勉強できます！
+    </div>
+
+    <!-- 単語カードで学習開始ボタン -->
+    <button type="button" id="start-study-btn" class="study-start-button">
       🎴 チェックした単語で勉強する
     </button>
 
+    <!-- 単語一覧 -->
     <ul id="dictionary-list" class="dictionary-list"></ul>
+
+    <!-- バックアップ・復元エリア -->
+    <div class="backup-section">
+      <h3>💾 データのバックアップと復元</h3>
+      <div class="backup-buttons">
+        <button type="button" id="export-btn" class="backup-btn">データを保存</button>
+        <label for="import-file-input" class="backup-btn import-label">
+          データを復元
+          <input type="file" id="import-file-input" accept=".json" style="display: none;">
+        </label>
+      </div>
+    </div>
+
   </main>
 
-  <!-- 単語カード用モーダル（表裏ひっくり返るカード） -->
+  <!-- フッター -->
+  <footer class="footer">
+    <p>&copy; Pop Word Book App</p>
+  </footer>
+
+  <!-- 単語カード モーダル -->
   <div id="card-modal" class="card-modal" style="display: none;">
     <div class="card-content">
-      <button id="close-card-btn" class="close-btn">&times;</button>
+      <button type="button" id="close-modal-btn" class="close-btn">&times;</button>
+      
+      <div id="confetti-container" class="confetti-container"></div>
 
-      <!-- 3Dフリップカード容器 -->
-      <div id="flash-card-container" class="flash-card-container">
-        <div id="flash-card-inner" class="flash-card-inner">
-          <!-- 表面（単語） -->
-          <div class="card-face card-front">
-            <span class="card-badge">表（タップでめくる）</span>
-            <p id="card-title">単語</p>
+      <!-- お祝い画面 -->
+      <div id="congrats-screen" class="congrats-screen" style="display: none;">
+        <div class="congrats-emoji">🎉🎊✨</div>
+        <h2 class="congrats-title">Congratulations!</h2>
+        <p class="congrats-text">選択した単語をすべてマスターしました！<br>素晴らしい集中力です！</p>
+        <button type="button" id="congrats-close-btn" class="word-button">学習を終了する</button>
+      </div>
+
+      <!-- カード領域 -->
+      <div id="study-card-body">
+        <div class="card-progress" id="card-progress">1 / 5</div>
+
+        <div class="flash-card-container" id="flash-card">
+          <div class="flash-card-inner" id="flash-card-inner">
+            <div class="card-face card-front">
+              <span class="card-badge">ヒント / 意味</span>
+              <p id="card-memo">（メモが表示されます）</p>
+            </div>
+            <div class="card-face card-back">
+              <span class="card-badge">単語 / 答え</span>
+              <p id="card-title">（単語が表示されます）</p>
+            </div>
           </div>
-          <!-- 裏面（メモ） -->
-          <div class="card-face card-back">
-            <span class="card-badge">裏（メモ）</span>
-            <p id="card-memo">メモがここに表示されます</p>
-          </div>
+        </div>
+        <p class="flip-hint">※ タップでめくれます</p>
+
+        <div class="card-controls">
+          <button type="button" id="wiki-btn" class="card-btn wiki-btn">🔍 Wiki</button>
+          <button type="button" id="master-btn" class="card-btn master-btn">✨ 覚えた！</button>
+          <button type="button" id="next-btn" class="card-btn next-btn">次へ ➔</button>
         </div>
       </div>
 
-      <div class="card-controls">
-        <button id="wiki-link-btn" class="card-btn wiki-btn">Wikipediaで見る</button>
-        <button id="master-btn" class="card-btn master-btn">覚えた！🎉</button>
-        <button id="next-card-btn" class="card-btn next-btn">次の単語 ➔</button>
-      </div>
     </div>
   </div>
 
-  <footer class="footer">
-    <p>&copy; 2026 Dictionary App</p>
-  </footer>
-
-  <script src="app.js?v=10"></script>
+  <!-- JSの外部読み込み -->
+  <script src="app.js"></script>
 </body>
 </html>

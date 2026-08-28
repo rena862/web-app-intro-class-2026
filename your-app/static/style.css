@@ -1,6 +1,4 @@
-/* ============================================================
-   全体・リセット
-   ============================================================ */
+/* 基本設定 */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,237 +6,339 @@
 }
 
 body {
-  font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Quicksand", sans-serif;
-  background-color: #f7f9f6;
-  color: #4a5568;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background-color: #e6f7f7;
+  color: #2b4c52;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* ============================================================
-   ヘッダー & フッター
-   ============================================================ */
+/* ヘッダー */
 .header {
-  background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
-  padding: 24px;
+  background-color: #ffffff;
+  padding: 18px 20px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(168, 230, 207, 0.4);
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.08);
 }
 
 .header h1 {
-  color: #ffffff;
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 1.6rem;
+  color: #0d9488;
   letter-spacing: 1px;
-  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.footer {
-  margin-top: auto;
-  padding: 16px;
-  text-align: center;
-  color: #a0aec0;
-  font-size: 13px;
-}
-
-/* ============================================================
-   メインカード（コンテナ）
-   ============================================================ */
+/* メインコンテナ */
 .dictionary-card {
-  background: #ffffff;
+  max-width: 580px;
   width: 90%;
-  max-width: 480px;
-  margin: 30px auto;
-  padding: 24px;
+  margin: 24px auto;
+  background: #ffffff;
+  padding: 28px;
   border-radius: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-/* ============================================================
-   入力フォーム & 追加ボタン
-   ============================================================ */
-.input-area-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.word-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #edf2f7;
-  border-radius: 16px;
-  font-size: 15px;
-  outline: none;
-  transition: all 0.2s ease;
-  background-color: #fafbfc;
-}
-
-.word-input:focus, .memo-input:focus {
-  border-color: #a8e6cf;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(168, 230, 207, 0.3);
-}
-
-.memo-input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 2px solid #edf2f7;
-  border-radius: 12px;
-  font-size: 14px;
-  outline: none;
-  font-family: inherit;
-  resize: vertical;
-  background-color: #fafbfc;
-}
-
-.word-button {
-  padding: 12px 20px;
-  background: #a8e6cf;
-  color: #2d5a43;
-  font-weight: bold;
-  border: none;
-  border-radius: 16px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(168, 230, 207, 0.4);
-}
-
-.word-button:hover {
-  background: #95ded2;
-  transform: translateY(-2px);
-}
-
-.word-button:active {
-  transform: translateY(0);
-}
-
-/* ============================================================
-   辞書リスト（単語一覧）
-   ============================================================ */
-.dictionary-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.dictionary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: #fdfdfd;
-  border: 2px solid #e2f0d9;
-  border-radius: 16px;
-  transition: all 0.2s ease;
-}
-
-.dictionary-item:hover {
-  border-color: #a8e6cf;
-  transform: scale(1.01);
-}
-
-/* 完了済みのスタイル */
-.dictionary-item.done {
-  background-color: #f4fbf7;
-  border-color: #c8e6c9;
-}
-
-.dictionary-item.done .dictionary-title {
-  color: #a0aec0; 
-}
-
-.dictionary-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  flex: 1;
-}
-
-.word-checkbox {
-  width: 20px;
-  height: 20px;
-  accent-color: #81c784;
-  cursor: pointer;
-}
-
-.dictionary-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #3b82f6;
-  text-decoration: none;
-  word-break: break-word;
-}
-
-.dictionary-title:hover {
-  text-decoration: underline;
-}
-
-.dictionary-memo-text {
-  font-size: 13px;
-  color: #718096;
-  margin-top: 4px;
-  font-weight: normal;
-  word-break: break-word;
-}
-
-.mastered-badge {
-  background: #fff3c4;
-  color: #b7791f;
-  border: 1px solid #f6e05e;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 2px 8px;
-  border-radius: 12px;
-  display: inline-block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.delete-button {
-  background: #ffd3b6;
-  color: #8a4b2a;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-left: 10px;
-}
-
-.delete-button:hover {
-  background: #ffaaa5;
-  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(20, 184, 166, 0.12);
+  flex-grow: 1;
 }
 
 /* エラーメッセージ */
 .error-message {
-  background: #ffaaa5;
-  color: white;
-  padding: 10px 16px;
+  background-color: #ffe4e6;
+  color: #e11d48;
+  padding: 10px 14px;
   border-radius: 12px;
-  font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 進捗バー */
+.progress-container {
+  margin-bottom: 24px;
+  background-color: #f0fdfa;
+  padding: 14px;
+  border-radius: 16px;
+  border: 2px dashed #99f6e4;
+}
+
+.progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #0f766e;
+  margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+  background-color: #ccfbf1;
+  height: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: linear-gradient(90deg, #2dd4bf, #0d9488);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* 入力エリア */
+.input-area-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.word-input, .memo-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #ccfbf1;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  background-color: #f0fdfa;
+  color: #115e59;
+  transition: all 0.2s;
+}
+
+.word-input:focus, .memo-input:focus {
+  border-color: #14b8a6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+}
+
+.word-button {
+  background: linear-gradient(135deg, #2dd4bf, #0d9488);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+  transition: all 0.2s;
+}
+
+.word-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+}
+
+/* フィルター ＆ 一括選択バー */
+.filter-and-select-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.filter-container, .quick-select-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn, .sub-action-btn {
+  background-color: #f0fdfa;
+  border: 1.5px solid #99f6e4;
+  color: #0f766e;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background-color: #14b8a6;
+  color: white;
+  border-color: #14b8a6;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
+}
+
+.sub-action-btn:hover, .filter-btn:not(.active):hover {
+  background-color: #ccfbf1;
+}
+
+/* 学習案内・ボタン */
+.study-guide-text {
+  font-size: 0.85rem;
+  color: #115e59;
+  margin-bottom: 8px;
   text-align: center;
   font-weight: bold;
 }
 
-/* ============================================================
-   ★ポップで可愛い単語カード（モーダル & 3Dフリップ）
-   ============================================================ */
+.study-start-button {
+  width: 100%;
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 18px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+  transition: all 0.2s;
+}
+
+.study-start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4);
+}
+
+/* 単語リスト */
+.dictionary-list {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.dictionary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1.5px solid #f0fdfa;
+  background-color: #f0fdfa;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+}
+
+.dictionary-item:hover {
+  border-color: #99f6e4;
+  background-color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* 覚えた単語の見た目（少し薄くするがチェックは押しやすく） */
+.dictionary-item.done {
+  opacity: 0.75;
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.dictionary-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.word-checkbox {
+  margin-top: 4px;
+  width: 20px;
+  height: 20px;
+  accent-color: #14b8a6;
+  cursor: pointer;
+}
+
+.dictionary-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #0f766e;
+}
+
+.mastered-badge {
+  background-color: #ccfbf1;
+  color: #0f766e;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.dictionary-memo-text {
+  font-size: 0.85rem;
+  color: #475569;
+  margin-top: 3px;
+}
+
+.delete-button {
+  background-color: #fff1f2;
+  color: #f43f5e;
+  border: 1px solid #fecdd3;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #ffe4e6;
+}
+
+/* バックアップエリア */
+.backup-section {
+  border-top: 2px dashed #ccfbf1;
+  padding-top: 20px;
+}
+
+.backup-section h3 {
+  font-size: 0.9rem;
+  color: #0f766e;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.backup-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.backup-btn {
+  flex: 1;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1.5px solid #99f6e4;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #0f766e;
+  transition: all 0.2s;
+}
+
+.backup-btn:hover {
+  background-color: #f0fdfa;
+}
+
+.import-label {
+  display: inline-block;
+}
+
+/* フッター */
+.footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.8rem;
+  color: #14b8a6;
+  font-weight: bold;
+}
+
+/* モーダル */
 .card-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(74, 85, 104, 0.5);
+  background: rgba(15, 23, 42, 0.4);
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
@@ -248,58 +348,51 @@ body {
 
 .card-content {
   background: #ffffff;
-  padding: 28px 20px;
+  width: 90%;
+  max-width: 420px;
+  padding: 28px;
   border-radius: 28px;
-  width: 88%;
-  max-width: 380px;
-  text-align: center;
   position: relative;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
 }
 
 .close-btn {
   position: absolute;
   top: 14px;
   right: 18px;
-  font-size: 22px;
+  background: #f0fdfa;
   border: none;
-  background: #f0f4f8;
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  font-size: 1.2rem;
   cursor: pointer;
-  color: #718096;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 10;
+  color: #0f766e;
+  font-weight: bold;
 }
 
-.close-btn:hover {
-  background: #ffaaa5;
-  color: white;
+.card-progress {
+  text-align: center;
+  font-weight: bold;
+  color: #0d9488;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
 }
 
-/* 3Dカードフリップコンテナ */
+/* フリップカード */
 .flash-card-container {
   perspective: 1000px;
-  margin: 20px 0;
+  height: 220px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .flash-card-inner {
-  width: 100%;
-  height: 180px; /* 高さをしっかり固定 */
   position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .flash-card-inner.is-flipped {
@@ -308,95 +401,115 @@ body {
 
 .card-face {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: 20px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border: 3px dashed #a8e6cf;
+  align-items: center;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(20, 184, 166, 0.12);
+  text-align: center;
 }
 
 .card-front {
-  background: linear-gradient(135deg, #f0f9f5 0%, #e6f4ea 100%);
+  background-color: #f0fdfa;
+  border: 3px solid #99f6e4;
+  color: #0f766e;
 }
 
 .card-back {
-  background: linear-gradient(135deg, #fffbe6 0%, #fff3c4 100%);
-  border-color: #ffe066;
+  background-color: #fffbeb;
+  border: 3px solid #fde68a;
+  color: #78350f;
   transform: rotateY(180deg);
 }
 
 .card-badge {
   position: absolute;
-  top: 10px;
-  font-size: 11px;
-  color: #a0aec0;
+  top: 14px;
+  left: 16px;
+  font-size: 0.75rem;
+  font-weight: bold;
   background: rgba(255, 255, 255, 0.8);
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-#card-title {
-  font-size: 24px;
+#card-memo, #card-title {
+  font-size: 1.25rem;
   font-weight: bold;
-  color: #2d5a43;
   word-break: break-word;
 }
 
-#card-memo {
-  font-size: 16px;
-  color: #5c4314;
-  word-break: break-word;
+.flip-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #14b8a6;
+  font-weight: bold;
+  margin-bottom: 18px;
 }
 
-/* 操作ボタン群 */
 .card-controls {
   display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .card-btn {
-  padding: 10px 14px;
-  border-radius: 14px;
+  flex: 1;
+  padding: 12px 8px;
   border: none;
+  border-radius: 14px;
   font-weight: bold;
+  font-size: 0.85rem;
   cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
 
-.wiki-btn {
-  background-color: #e2e8f0;
-  color: #4a5568;
-}
+.wiki-btn { background-color: #f0fdfa; color: #0f766e; border: 1.5px solid #99f6e4; }
+.master-btn { background: linear-gradient(135deg, #2dd4bf, #0d9488); color: white; box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2); }
+.next-btn { background-color: #e2e8f0; color: #475569; }
 
-.wiki-btn:hover {
-  background-color: #cbd5e0;
-}
-
-.master-btn {
-  background-color: #ffe066;
-  color: #6b4d00;
-}
-
-.master-btn:hover {
-  background-color: #ffd166;
-}
-
-.next-btn {
-  background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(129, 199, 132, 0.4);
-}
-
-.next-btn:hover {
+.card-btn:hover {
   transform: translateY(-2px);
+}
+
+/* お祝い画面 */
+.congrats-screen {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.congrats-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+.congrats-title { color: #0d9488; margin-bottom: 8px; font-size: 1.5rem; }
+.congrats-text { font-size: 0.95rem; color: #475569; margin-bottom: 24px; line-height: 1.5; }
+
+/* 紙吹雪アニメーション */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  border-radius: 3px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(380px) rotate(720deg);
+    opacity: 0;
+  }
 }

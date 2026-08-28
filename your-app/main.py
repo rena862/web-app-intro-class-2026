@@ -9,11 +9,14 @@ app = FastAPI()
 words_db = []
 current_id = 1
 
+# --- Pydanticモデル定義 ---
+
 class WordCreate(BaseModel):
     title: str = Field(..., max_length=100)
     memo: Optional[str] = Field(default="", max_length=500)
 
 class WordUpdate(BaseModel):
+    # すべての項目に Optional[型] = None を設定することで部分更新を可能にする
     done: Optional[bool] = None
     mastered: Optional[bool] = None
     memo: Optional[str] = None
@@ -24,6 +27,8 @@ class WordResponse(BaseModel):
     memo: str
     done: bool
     mastered: bool
+
+# --- APIエンドポイント ---
 
 @app.get("/words", response_model=List[WordResponse])
 def get_words():
@@ -36,7 +41,7 @@ def create_word(word: WordCreate):
         "id": current_id,
         "title": word.title,
         "memo": word.memo or "",
-        "done": True, # デフォルトでチェック対象にする
+        "done": True,  # デフォルトでチェック対象にする
         "mastered": False
     }
     words_db.append(new_word)
@@ -47,7 +52,7 @@ def create_word(word: WordCreate):
 def update_word(word_id: int, word_update: WordUpdate):
     for word in words_db:
         if word["id"] == word_id:
-            # 送られてきた項目だけを更新する
+            # 送信されてきた項目だけを更新する
             if word_update.done is not None:
                 word["done"] = word_update.done
             if word_update.mastered is not None:
@@ -63,9 +68,10 @@ def delete_word(word_id: int):
     words_db = [w for w in words_db if w["id"] != word_id]
     return {"message": "削除しました"}
 
+# 静的ファイルの配信設定
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
-# 直接起動用のコードを追加！
+# 直接起動用設定
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
